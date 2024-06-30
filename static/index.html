@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/vue@3.4.31/dist/vue.runtime.global.prod.js"></script>
+    <script src="/counter-button.umd.cjs"></script>
+</head>
+<body>
+    <counter-button id="counter-button">
+        <span slot="label">My counter: </span>
+        Count
+    </counter-button>
+    <script>
+        document.getElementById("counter-button").addEventListener("change", (ev) => {
+            console.log("New number is: ", ev.detail[0])
+        });
+    </script>
+</body>
+</html>

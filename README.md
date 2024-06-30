@@ -1,33 +1,49 @@
-# vue-web-component-example
+# Example Vue Web Component without embedding Vue into output file
+This repo contains example build of Counter Component made in Vue that is exported as Web Component. It is being built without vue embeded, so the size of file is less than 1kB.
 
-This template should help get you started developing with Vue 3 in Vite.
+Example also shows how to use emits and slots of an component.
 
-## Recommended IDE Setup
+# Demonstration
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+![animated demonstration of working example](./.github/docs/peek_2.gif)
 
-## Type Support for `.vue` Imports in TS
+# How to use
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
-
-```sh
+Install dependencies
+```bash
 npm install
 ```
 
-### Compile and Hot-Reload for Development
-
-```sh
-npm run dev
+Build component files
+```bash
+npm run build
 ```
 
-### Type-Check, Compile and Minify for Production
+Copy built component file to static dir
+```bash
+cp dist/counter-button.umd.cjs static
+```
 
-```sh
-npm run build
+Embed component file as well as Vue dependency
+```html
+<head>
+    ...
+    <script src="https://unpkg.com/vue@3.4.31/dist/vue.runtime.global.prod.js"></script>
+    <script src="/counter-button.umd.cjs"></script>
+</head>
+```
+
+Use the component in any place in HTML
+```html
+<body>
+    <counter-button id="counter-button">
+        <span slot="label">My counter: </span>
+        Count
+    </counter-button>
+    <script>
+        document.getElementById("counter-button").addEventListener("change", (ev) => {
+            console.log("New number is: ", ev.detail[0])
+        });
+    </script>
+</body>
 ```
